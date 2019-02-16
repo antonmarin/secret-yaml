@@ -20,7 +20,7 @@ jobs:
         - task test
         - BINARY_PATH="release/syml" task compile 
       after_success:
-        - cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+        - codeclimate-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
     - stage: release
       script: echo "Deploying to GitHub releases ..."
       deploy:
