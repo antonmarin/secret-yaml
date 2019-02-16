@@ -7,7 +7,7 @@ env:
 jobs:
   include:
     - stage: test
-      before_script:
+      install:
         - wget -qO - "https://github.com/go-task/task/releases/download/v2.2.1/task_linux_amd64.tar.gz" |
           tar zxf - -C /tmp task;
           ls -la /tmp/task
