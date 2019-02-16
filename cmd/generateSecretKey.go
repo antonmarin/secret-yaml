@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/antonmarin/secret-yaml/useCases"
 
 	"github.com/spf13/cobra"
 )
@@ -13,11 +14,20 @@ var generateSecretKeyCmd = &cobra.Command{
 	Long: `Generates AES secret key to use later with 
 encrypt/decrypt and outputs it to stdout.
 Store it somewhere!`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("generateSecret called")
+	RunE: func(cmd *cobra.Command, args []string) error {
+		result, err := useCases.GenerateSecretKeyUseCase.Execute()
+		if err != nil {
+			return err
+		}
+		fmt.Printf("%s\n", result)
+		return nil
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(generateSecretKeyCmd)
+}
+
+type GenerateSecretKeyCommandUseCase interface {
+	Execute() ([]byte, error)
 }
