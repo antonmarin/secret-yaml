@@ -8,29 +8,24 @@ import (
 
 // encryptCmd represents the encrypt command
 var encryptCmd = &cobra.Command{
-	Use:   "encrypt",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short:   "Encrypt yaml file",
+	Long:    `Encrypts file with --secret and outputs to stdout`,
+	Use:     "encrypt path-to-yaml-file",
+	Example: "  syml encrypt ~/secrets/values.prod.decrypted.yaml > ~/chart/values.prod.yaml",
+	Args:    cobra.ExactArgs(1),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		fmt.Print("encrypt called with args: ")
+		fmt.Println(args)
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("encrypt called")
+		return nil
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(encryptCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// encryptCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// encryptCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	encryptCmd.Flags().String("secret", "", "Secret key to encode with")
+	if err := encryptCmd.MarkFlagRequired("secret"); err != nil {
+		panic(fmt.Errorf("Fatal error: %s \n", err))
+	}
 }
