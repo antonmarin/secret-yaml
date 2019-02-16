@@ -12,7 +12,7 @@ var rootCmd = &cobra.Command{
 Made to be quickly installed right in your ci pipeline.
 
 Base usage scenario:
-  1. Generate secret key with 'syml generate-secret'
+  1. Generate secret key with 'syml generateSecretKey'
   2. Use secret to encrypt file with 'syml encrypt'
   3. Install tool in your pipeline
   4. Use same secret to decrypt file with 'syml decrypt'`,
