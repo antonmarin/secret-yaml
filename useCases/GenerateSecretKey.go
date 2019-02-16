@@ -1,6 +1,8 @@
 package useCases
 
-import "github.com/antonmarin/secret-yaml/domain"
+import (
+	"github.com/antonmarin/secret-yaml/generateRandom"
+)
 
 type GenerateSecretKey struct {
 	generator SecretKeyGenerator
@@ -17,5 +19,5 @@ type SecretKeyGenerator interface {
 var GenerateSecretKeyUseCase GenerateSecretKey
 
 func init() {
-	GenerateSecretKeyUseCase.generator = new(domain.AesEncryptionService)
+	GenerateSecretKeyUseCase.generator = new(generateRandom.CryptoGeneratorService)
 }

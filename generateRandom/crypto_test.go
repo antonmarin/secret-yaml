@@ -1,9 +1,9 @@
-package domain
+package generateRandom
 
 import "testing"
 
 func TestGenerateSecretKeyShouldReturnBytes32(t *testing.T) {
-	service := new(AesEncryptionService)
+	service := new(CryptoGeneratorService)
 	result, err := service.GenerateSecretKey()
 	if err != nil {
 		t.Errorf("Should not be error while simple generation. Error: %s", err)
