@@ -16,11 +16,11 @@ jobs:
         - export PATH=$PATH:/tmp
         - task --version
       script:
+        - codeclimate-test-reporter before-build
         - task test
         - BINARY_PATH="release/syml" task compile 
       after_success:
-        - codeclimate-test-reporter format-coverage -t gcov -o coverage/codeclimate.json c.out
-        - codeclimate-test-reporter upload-coverage
+        - cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
     - stage: release
       script: echo "Deploying to GitHub releases ..."
       deploy:
