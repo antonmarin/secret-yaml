@@ -1,9 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/spf13/cobra"
 )
 
@@ -12,14 +9,20 @@ var rootCmd = &cobra.Command{
 	Use:   "syml",
 	Short: "Tool to secret yaml values",
 	Long: `Tool to secret yaml values. 
-Made to be quickly installed right in your ci pipeline`,
+Made to be quickly installed right in your ci pipeline.
+
+Base usage scenario:
+  1. Generate secret key with 'syml generate-secret'
+  2. Use secret to encrypt file with 'syml encrypt'
+  3. Install tool in your pipeline
+  4. Use same secret to decrypt file with 'syml decrypt'`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
+func Execute() error {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		return err
 	}
+	return nil
 }
