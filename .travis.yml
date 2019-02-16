@@ -1,0 +1,30 @@
+---
+language: go
+go:
+  - 1.11.x
+env:
+  - TZ=UTC
+jobs:
+  include:
+    - stage: test
+      before_script:
+        - wget -qO - "https://github.com/go-task/task/releases/download/v2.2.1/task_linux_amd64.tar.gz" |
+          tar zxf - -C /tmp task;
+          ls -la /tmp/task
+        - wget -qO - https://codeclimate.com/downloads/test-reporter/test-reporter-0.6.3-linux-amd64 > /tmp/codeclimate-test-reporter;
+          chmod +x /tmp/codeclimate-test-reporter
+        - export PATH=$PATH:/tmp
+        - task --version
+      script:
+        - task test
+      after_success:
+        - codeclimate-test-reporter format-coverage -t gcov -o coverage/codeclimate.json c.out
+        - codeclimate-test-reporter upload-coverage
+    - stage: release
+      script: echo "Deploying to GitHub releases ..."
+      deploy:
+        provider: releases
+        api_key: $GITHUB_OAUTH_TOKEN
+        skip_cleanup: true
+        on:
+          tags: true  

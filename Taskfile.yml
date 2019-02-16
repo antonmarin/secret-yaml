@@ -1,0 +1,65 @@
+---
+version: '2'
+
+vars:
+  CMD_LIST_PACKAGES: go list ./... | grep -v /vendor/
+  VERSION_DEP: "v0.5.0"
+
+tasks:
+  build:
+    cmds:
+      - dep ensure
+    deps: [require-dep]
+
+  # Usage without prompt: `BINARY_PATH=path-to-bin task compile`
+  compile:
+    deps: [build]
+    cmds:
+      - if [ -z ${BINARY_PATH+x} ]; then
+        echo "Where to compile?" &&
+        read COMPILE_PATH &&
+        echo "Going to compile to ${COMPILE_PATH}" &&
+        export BINARY_PATH=${COMPILE_PATH};
+        fi;
+        go build -race -ldflags "-extldflags '-static'" -o ${BINARY_PATH}
+    sources:
+      - "**/*.go"
+    generates:
+      - ${BINARY_PATH}
+
+  format:
+    cmds:
+      - go fmt $({{ .CMD_LIST_PACKAGES }})
+
+  lint:
+    desc: "Quick tests such as fmt and vet"
+    cmds:
+      - dep check
+#      - if [ ! -z $(gofmt -e -l **/*.go) ]; then
+#        echo "Files with formatting errors:";
+#        gofmt -e -l **/*.go;
+#        exit 1;
+#        fi
+      - go vet $({{ .CMD_LIST_PACKAGES }})
+    deps: [build]
+
+  run:
+    cmds:
+      - go run -race main.go
+    #    env:
+    #      SENTRY_RELEASE: dev
+    #      SENTRY_ENVIRONMENT: dev
+    #      SENTRY_DSN: "https://bf61fc2df1d94b81a6026edfc712ab29:7a37deedec70440c9cf2bfee6baf0616@sentry.io/1273294"
+    deps: [lint]
+
+  test:
+    desc: "Test application"
+    cmds:
+      - go test -race -coverprofile=c.out $({{ .CMD_LIST_PACKAGES }})
+    deps: [lint]
+
+  require-dep:
+    cmds:
+      - curl https://raw.githubusercontent.com/golang/dep/{{ .VERSION_DEP }}/install.sh | sh
+    status:
+      - test -f "$(command -v dep)"
