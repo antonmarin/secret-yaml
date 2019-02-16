@@ -17,6 +17,7 @@ jobs:
         - task --version
       script:
         - task test
+        - task compile BINARY_PATH=release/syml
       after_success:
         - codeclimate-test-reporter format-coverage -t gcov -o coverage/codeclimate.json c.out
         - codeclimate-test-reporter upload-coverage
@@ -26,5 +27,6 @@ jobs:
         provider: releases
         api_key: $GITHUB_OAUTH_TOKEN
         skip_cleanup: true
+        file: release/syml
         on:
           tags: true  

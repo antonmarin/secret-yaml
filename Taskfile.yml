@@ -10,11 +10,6 @@ tasks:
     cmds:
       - dep ensure
     deps: [require-dep]
-    sources:
-      - Gopkg.toml
-      - Gopkg.lock
-    generates:
-      - vendor/**/*.go
 
   # Usage without prompt: `BINARY_PATH=path-to-bin task compile`
   compile:
