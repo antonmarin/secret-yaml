@@ -1,9 +1,7 @@
 package main
 
-import (
-	"fmt"
-)
+import "github.com/antonmarin/secret-yaml/cmd"
 
 func main() {
-	fmt.Printf("Hello world \n")
+	cmd.Execute()
 }

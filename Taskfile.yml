@@ -10,6 +10,11 @@ tasks:
     cmds:
       - dep ensure
     deps: [require-dep]
+    sources:
+      - Gopkg.toml
+      - Gopkg.lock
+    generates:
+      - vendor/**/*.go
 
   # Usage without prompt: `BINARY_PATH=path-to-bin task compile`
   compile:
@@ -58,6 +63,11 @@ tasks:
       - go test -race -coverprofile=c.out $({{ .CMD_LIST_PACKAGES }})
     deps: [lint]
 
+  require-cobra:
+    cmds:
+      - go get -u github.com/spf13/cobra/cobra
+    status:
+      - test -f "$(command -v cobra)"
   require-dep:
     cmds:
       - curl https://raw.githubusercontent.com/golang/dep/{{ .VERSION_DEP }}/install.sh | sh
