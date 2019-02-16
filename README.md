@@ -21,3 +21,8 @@ path/to/encryptedYaml.yml`
 
 `syml decrypt path/to/encryptedYaml.yaml --secret=${YOUR_SECRET} > 
 path/to/decryptedFile.yml`
+
+### Generate secret
+
+`syml generate-secret` outputs generated secret. 
+Store it somewhere to use later `${YOUR_SERCET}` 
