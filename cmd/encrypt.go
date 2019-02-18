@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-
+	"github.com/antonmarin/secret-yaml/io"
 	"github.com/spf13/cobra"
 )
 
@@ -16,6 +16,12 @@ var encryptCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Print("encrypt called with args: ")
 		fmt.Println(args)
+		inputFile := io.NewFile(args[0])
+		data, err := inputFile.AsBytes()
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(data))
 
 		return nil
 	},
@@ -28,4 +34,8 @@ func init() {
 	if err := encryptCmd.MarkFlagRequired("secret"); err != nil {
 		panic(fmt.Errorf("Fatal error: %s \n", err))
 	}
+}
+
+type EncryptCommandUseCase interface {
+	Execute() ([]byte, error)
 }
