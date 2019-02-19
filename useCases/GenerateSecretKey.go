@@ -1,11 +1,11 @@
 package useCases
 
-import (
-	"github.com/antonmarin/secret-yaml/generateRandom"
-)
-
 type GenerateSecretKey struct {
 	generator SecretKeyGenerator
+}
+
+func NewGenerateSecretKey(generator SecretKeyGenerator) *GenerateSecretKey {
+	return &GenerateSecretKey{generator: generator}
 }
 
 func (useCase GenerateSecretKey) Execute() ([]byte, error) {
@@ -14,10 +14,4 @@ func (useCase GenerateSecretKey) Execute() ([]byte, error) {
 
 type SecretKeyGenerator interface {
 	GenerateSecretKey() ([]byte, error)
-}
-
-var GenerateSecretKeyUseCase GenerateSecretKey
-
-func init() {
-	GenerateSecretKeyUseCase.generator = new(generateRandom.CryptoGeneratorService)
 }
