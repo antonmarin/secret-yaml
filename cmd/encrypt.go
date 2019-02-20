@@ -1,8 +1,11 @@
 package cmd
 
 import (
+	flag "github.com/spf13/pflag"
+
 	"fmt"
 	"github.com/antonmarin/secret-yaml/io"
+	"github.com/antonmarin/secret-yaml/useCases"
 	"github.com/spf13/cobra"
 )
 
@@ -14,14 +17,25 @@ var encryptCmd = &cobra.Command{
 	Example: "  syml encrypt ~/secrets/values.prod.decrypted.yaml > ~/chart/values.prod.yaml",
 	Args:    cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		fmt.Print("encrypt called with args: ")
-		fmt.Println(args)
+		secret := flag.String("secret", "", "")
+		flag.Parse()
+
 		inputFile := io.NewFile(args[0])
 		data, err := inputFile.AsBytes()
 		if err != nil {
 			return err
 		}
-		fmt.Println(string(data))
+
+		useCase := useCases.NewEncrypt()
+		result, err := useCase.Execute(*secret, data)
+		if err != nil {
+			return err
+		}
+
+		_, err = fmt.Println(string(result))
+		if err != nil {
+			return err
+		}
 
 		return nil
 	},
@@ -36,6 +50,10 @@ func init() {
 	}
 }
 
+type Input interface {
+	AsBytes() ([]byte, error)
+}
+
 type EncryptCommandUseCase interface {
-	Execute() ([]byte, error)
+	Execute(secret string, yaml []byte) ([]byte, error)
 }
