@@ -21,7 +21,7 @@ var encryptCmd = &cobra.Command{
 		flag.Parse()
 
 		inputFile := io.NewFile(args[0])
-		data, err := inputFile.AsBytes()
+		data, err := inputFile.AsString()
 		if err != nil {
 			return err
 		}
@@ -51,9 +51,9 @@ func init() {
 }
 
 type Input interface {
-	AsBytes() ([]byte, error)
+	AsString() (string, error)
 }
 
 type EncryptCommandUseCase interface {
-	Execute(secret string, yaml []byte) ([]byte, error)
+	Execute(secret string, yaml string) (string, error)
 }
