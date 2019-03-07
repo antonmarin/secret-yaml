@@ -9,8 +9,8 @@ type Encrypt struct {
 	documentManipulator YamlManipulator
 }
 
-func NewEncrypt() *Encrypt {
-	return &Encrypt{}
+func NewEncrypt(encryptionService EncryptionService, documentManipulator YamlManipulator) *Encrypt {
+	return &Encrypt{encryptionService: encryptionService, documentManipulator: documentManipulator}
 }
 
 func (useCase Encrypt) Execute(secret string, dataYaml string) (string, error) {
@@ -36,6 +36,7 @@ type EncryptionService interface {
 	Encrypt([]byte) ([]byte, error)
 }
 
+//data types: yaml.MapSlice, yaml.MapItem, and Exact value
 type YamlManipulator interface {
 	ApplyToLeafs(callback func([]byte) ([]byte, error), data interface{}) (interface{}, error)
 }
