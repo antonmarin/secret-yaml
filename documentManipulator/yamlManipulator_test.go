@@ -10,7 +10,7 @@ import (
 func returnStatic([]byte) ([]byte, error) {
 	return []byte("staticValue"), nil
 }
-func TestYamlManipulator_ApplyToLeafs(t *testing.T) {
+func TestYamlManipulator_ApplyToLeafs_ShouldApplyOnlyToLeafsOfMapItem(t *testing.T) {
 	manipulator := NewYamlManipulator()
 	var expectedData []byte
 	var err error
@@ -36,35 +36,31 @@ func TestYamlManipulator_ApplyToLeafs(t *testing.T) {
 	if !bytes.Equal(expectedData, outputDataBytes) {
 		t.Errorf("Should apply function to leafs of yaml tree.\nExpected:\n%s\nActual:\n%s", expectedData, outputData)
 	}
+}
 
-	//	nestedData := `---
-	//someKey:
-	//  nestedKey: someValue`
-	//	expectedData = `---
-	//someKey:
-	//  nestedKey: staticValue`
-	//	outputData, err = manipulator.ApplyToLeafs(returnStatic, nestedData)
-	//	if err != nil {
-	//		t.Errorf("Should not error on valid yaml. Error: %s", err)
-	//	}
-	//	if expectedData != outputData {
-	//		t.Errorf("Should apply function to leafs of yaml tree.\nExpected: %s\nActual: %s", expectedData, outputData)
-	//	}
+func TestYamlManipulator_ApplyToLeafs_ShouldApplyOnlyToLeafsOfMapSlice(t *testing.T) {
+	manipulator := NewYamlManipulator()
+	nestedData := `---
+someKey:
+  nestedKey: someValue`
+	expectedData := []byte("someKey:\n  nestedKey: staticValue\n")
 
-	//	nestedData := `---
-	//key:
-	//  nestedKey: valueEncryptedWithSecretAsdf`
-	//	resultOfEncrypt, err = useCase.Execute(secret, nestedData)
-	//	if err != nil {
-	//		t.Errorf("Should not fail if nestedData valid. Error: %s", err)
-	//	}
-	//	expectedData = `---
-	//key:
-	//  nestedKey: valueEncryptedWithSecretAsdf`
-	//	if expectedData != resultOfEncrypt {
-	//		t.Errorf("Should encrypt only values of nestedData.\nExpected: %s\nGot: %s", expectedData, resultOfEncrypt)
-	//	}
+	document := make(yaml.MapSlice, 0)
+	err := yaml.Unmarshal([]byte(nestedData), &document)
+	if err != nil {
+		t.Errorf("Should not error on valid yaml. Error: %s", err)
+	}
 
-	//	Should return error if yaml invalid
+	outputData, err := manipulator.ApplyToLeafs(returnStatic, document)
+	if err != nil {
+		t.Errorf("Should not error on valid yaml. Error: %s", err)
+	}
+	outputDataBytes, err := yaml.Marshal(outputData)
+	if err != nil {
+		t.Errorf("Should not error on valid yaml. Error: %s", err)
+	}
 
+	if !bytes.Equal(expectedData, outputDataBytes) {
+		t.Errorf("Should apply function to leafs of yaml tree.\nExpected:\n%s\nActual:\n%s", expectedData, outputData)
+	}
 }
