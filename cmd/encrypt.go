@@ -1,8 +1,13 @@
 package cmd
 
 import (
-	"fmt"
+	"github.com/antonmarin/secret-yaml/documentManipulator"
+	"github.com/antonmarin/secret-yaml/encryption"
+	flag "github.com/spf13/pflag"
 
+	"fmt"
+	"github.com/antonmarin/secret-yaml/io"
+	"github.com/antonmarin/secret-yaml/useCases"
 	"github.com/spf13/cobra"
 )
 
@@ -14,8 +19,29 @@ var encryptCmd = &cobra.Command{
 	Example: "  syml encrypt ~/secrets/values.prod.decrypted.yaml > ~/chart/values.prod.yaml",
 	Args:    cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		fmt.Print("encrypt called with args: ")
-		fmt.Println(args)
+		secret := flag.String("secret", "", "")
+		flag.Parse()
+
+		inputFile := io.NewFile(args[0])
+		data, err := inputFile.AsString()
+		if err != nil {
+			return err
+		}
+		encryptionService, err := encryption.NewAesEncryptionService(*secret)
+		if err != nil {
+			return err
+		}
+
+		useCase := useCases.NewEncrypt(encryptionService, documentManipulator.NewYamlManipulator())
+		result, err := useCase.Execute(data)
+		if err != nil {
+			return err
+		}
+
+		_, err = fmt.Println(string(result))
+		if err != nil {
+			return err
+		}
 
 		return nil
 	},
@@ -28,4 +54,12 @@ func init() {
 	if err := encryptCmd.MarkFlagRequired("secret"); err != nil {
 		panic(fmt.Errorf("Fatal error: %s \n", err))
 	}
+}
+
+type Input interface {
+	AsString() (string, error)
+}
+
+type EncryptCommandUseCase interface {
+	Execute(yaml string) (string, error)
 }
