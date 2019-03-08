@@ -1,12 +1,12 @@
 package cmd
 
 import (
-	"flag"
 	"fmt"
 	"github.com/antonmarin/secret-yaml/documentManipulator"
 	"github.com/antonmarin/secret-yaml/encryption"
 	"github.com/antonmarin/secret-yaml/io"
 	"github.com/antonmarin/secret-yaml/useCases"
+	flag "github.com/spf13/pflag"
 
 	"github.com/spf13/cobra"
 )
