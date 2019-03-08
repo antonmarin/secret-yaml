@@ -56,10 +56,6 @@ func init() {
 	}
 }
 
-type Input interface {
-	AsString() (string, error)
-}
-
 type EncryptCommandUseCase interface {
 	Execute(yaml string) (string, error)
 }
