@@ -18,7 +18,8 @@ jobs:
       script:
         - codeclimate-test-reporter before-build
         - task test
-        - BINARY_PATH="release/syml" task compile 
+        - BINARY_PATH="release/syml" task compile
+        - ls release/
       after_success:
         - codeclimate-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
     - stage: release
