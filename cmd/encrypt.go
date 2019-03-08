@@ -27,8 +27,12 @@ var encryptCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		encryptionService, err := encryption.NewAesEncryptionService(*secret)
+		if err != nil {
+			return err
+		}
 
-		useCase := useCases.NewEncrypt(encryption.NewAesEncryptionService(*secret), documentManipulator.NewYamlManipulator())
+		useCase := useCases.NewEncrypt(encryptionService, documentManipulator.NewYamlManipulator())
 		result, err := useCase.Execute(data)
 		if err != nil {
 			return err
