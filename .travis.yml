@@ -23,6 +23,11 @@ jobs:
     - stage: release
       script: echo "Deploying to GitHub releases ..."
       before_deploy:
+        - wget -qO - "https://github.com/go-task/task/releases/download/v2.2.1/task_linux_amd64.tar.gz" |
+          tar zxf - -C /tmp task;
+          ls -la /tmp/task
+        - export PATH=$PATH:/tmp
+        - task --version
         - BINARY_PATH="release/syml" task compile
         - ls release/
       deploy:
