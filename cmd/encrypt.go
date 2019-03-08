@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"github.com/antonmarin/secret-yaml/documentManipulator"
+	"github.com/antonmarin/secret-yaml/encryption"
 	flag "github.com/spf13/pflag"
 
 	"fmt"
@@ -26,7 +28,7 @@ var encryptCmd = &cobra.Command{
 			return err
 		}
 
-		useCase := useCases.NewEncrypt()
+		useCase := useCases.NewEncrypt(encryption.NewAesEncryptionService(), documentManipulator.NewYamlManipulator())
 		result, err := useCase.Execute(*secret, data)
 		if err != nil {
 			return err
