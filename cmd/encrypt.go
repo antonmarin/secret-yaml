@@ -7,7 +7,7 @@ import (
 
 	"fmt"
 	"github.com/antonmarin/secret-yaml/io"
-	"github.com/antonmarin/secret-yaml/useCases"
+	"github.com/antonmarin/secret-yaml/useCases/encrypt"
 	"github.com/spf13/cobra"
 )
 
@@ -32,7 +32,7 @@ var encryptCmd = &cobra.Command{
 			return err
 		}
 
-		useCase := useCases.NewEncrypt(encryptionService, documentManipulator.NewYamlManipulator())
+		useCase := encrypt.NewEncrypt(encryptionService, documentManipulator.NewYamlManipulator())
 		result, err := useCase.Execute(data)
 		if err != nil {
 			return err
@@ -54,10 +54,6 @@ func init() {
 	if err := encryptCmd.MarkFlagRequired("secret"); err != nil {
 		panic(fmt.Errorf("Fatal error: %s \n", err))
 	}
-}
-
-type Input interface {
-	AsString() (string, error)
 }
 
 type EncryptCommandUseCase interface {

@@ -1,4 +1,4 @@
-package useCases
+package encrypt
 
 import (
 	"gopkg.in/yaml.v2"

@@ -1,4 +1,4 @@
-package useCases
+package generateSecretKey
 
 type GenerateSecretKey struct {
 	generator SecretKeyGenerator

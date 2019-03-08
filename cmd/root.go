@@ -26,3 +26,7 @@ func Execute() error {
 	}
 	return nil
 }
+
+type Input interface {
+	AsString() (string, error)
+}

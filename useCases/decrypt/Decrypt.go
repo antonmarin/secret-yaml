@@ -1,0 +1,40 @@
+package decrypt
+
+import "gopkg.in/yaml.v2"
+
+type Decrypt struct {
+	encryptionService   DecryptionService
+	documentManipulator YamlManipulator
+}
+
+func NewDecrypt(encryptionService DecryptionService, documentManipulator YamlManipulator) *Decrypt {
+	return &Decrypt{encryptionService: encryptionService, documentManipulator: documentManipulator}
+}
+
+func (useCase Decrypt) Execute(dataYaml string) (string, error) {
+	document := make(yaml.MapSlice, 0)
+	err := yaml.Unmarshal([]byte(dataYaml), &document)
+	if err != nil {
+		return "", err
+	}
+	encryptedDocument, err := useCase.documentManipulator.ApplyToLeafs(useCase.encryptionService.Decrypt, document)
+	if err != nil {
+		return "", err
+	}
+
+	encryptedYaml, err := yaml.Marshal(encryptedDocument)
+	if err != nil {
+		return "", err
+	}
+
+	return string(encryptedYaml), nil
+}
+
+type DecryptionService interface {
+	Decrypt([]byte) ([]byte, error)
+}
+
+//data types: yaml.MapSlice, yaml.MapItem, and Exact value
+type YamlManipulator interface {
+	ApplyToLeafs(callback func([]byte) ([]byte, error), data interface{}) (interface{}, error)
+}
