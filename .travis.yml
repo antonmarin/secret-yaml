@@ -33,7 +33,6 @@ jobs:
       deploy:
         provider: releases
         api_key: $GITHUB_OAUTH_TOKEN
-        draft: true
         skip_cleanup: true
         file: release/syml-linux
         on:
