@@ -6,14 +6,13 @@ import (
 )
 
 func TestEncrypt_Execute(t *testing.T) {
-	secret := "asdf"
 	useCase := NewEncrypt(new(DummyEncryptionService), new(FakeYamlDocumentManipulator))
 	var resultOfEncrypt interface{}
 	var err interface{}
 	var expectedData interface{}
 
 	simpleData := `key: value`
-	resultOfEncrypt, err = useCase.Execute(secret, simpleData)
+	resultOfEncrypt, err = useCase.Execute(simpleData)
 	if err != nil {
 		t.Errorf("Should not fail if simpleData valid. Error: %s", err)
 	}

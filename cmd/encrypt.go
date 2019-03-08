@@ -28,8 +28,8 @@ var encryptCmd = &cobra.Command{
 			return err
 		}
 
-		useCase := useCases.NewEncrypt(encryption.NewAesEncryptionService(), documentManipulator.NewYamlManipulator())
-		result, err := useCase.Execute(*secret, data)
+		useCase := useCases.NewEncrypt(encryption.NewAesEncryptionService(*secret), documentManipulator.NewYamlManipulator())
+		result, err := useCase.Execute(data)
 		if err != nil {
 			return err
 		}
@@ -57,5 +57,5 @@ type Input interface {
 }
 
 type EncryptCommandUseCase interface {
-	Execute(secret string, yaml string) (string, error)
+	Execute(yaml string) (string, error)
 }

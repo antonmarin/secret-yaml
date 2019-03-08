@@ -13,7 +13,7 @@ func NewEncrypt(encryptionService EncryptionService, documentManipulator YamlMan
 	return &Encrypt{encryptionService: encryptionService, documentManipulator: documentManipulator}
 }
 
-func (useCase Encrypt) Execute(secret string, dataYaml string) (string, error) {
+func (useCase Encrypt) Execute(dataYaml string) (string, error) {
 	document := make(yaml.MapSlice, 0)
 	err := yaml.Unmarshal([]byte(dataYaml), &document)
 	if err != nil {
