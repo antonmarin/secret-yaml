@@ -23,7 +23,6 @@ jobs:
     - stage: release
       script: echo "Deploying to GitHub releases ..."
       before_deploy:
-        - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
         - BINARY_PATH="release/syml" task compile
         - ls release/
       deploy:
@@ -32,5 +31,5 @@ jobs:
         draft: true
         skip_cleanup: true
         file: release/syml-linux
-#        on:
-#          tags: true  
+        on:
+          tags: true  
