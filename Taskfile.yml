@@ -3,6 +3,8 @@ version: '2'
 
 vars:
   CMD_LIST_PACKAGES: go list ./... | grep -v /vendor/
+  GOOS:
+    sh: uname | tr '[:upper:]' '[:lower:]'
   VERSION_DEP: "v0.5.0"
 
 tasks:
@@ -21,7 +23,7 @@ tasks:
         echo "Going to compile to ${COMPILE_PATH}" &&
         export BINARY_PATH=${COMPILE_PATH};
         fi;
-        go build -race -ldflags "-extldflags '-static'" -o ${BINARY_PATH}
+        go build -race -ldflags "-extldflags '-static'" -o ${BINARY_PATH}-{{ .GOOS }}
     sources:
       - "**/*.go"
     generates:
