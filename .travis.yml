@@ -27,8 +27,7 @@ jobs:
       deploy:
         provider: releases
         api_key: $GITHUB_OAUTH_TOKEN
-        file_glob: true
         skip_cleanup: true
-        file: release/*
+        file: release/syml-linux
         on:
           tags: true  
