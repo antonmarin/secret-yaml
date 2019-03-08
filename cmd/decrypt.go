@@ -5,7 +5,7 @@ import (
 	"github.com/antonmarin/secret-yaml/documentManipulator"
 	"github.com/antonmarin/secret-yaml/encryption"
 	"github.com/antonmarin/secret-yaml/io"
-	"github.com/antonmarin/secret-yaml/useCases"
+	"github.com/antonmarin/secret-yaml/useCases/decrypt"
 	flag "github.com/spf13/pflag"
 
 	"github.com/spf13/cobra"
@@ -32,7 +32,7 @@ var decryptCmd = &cobra.Command{
 			return err
 		}
 
-		useCase := useCases.NewDecrypt(encryptionService, documentManipulator.NewYamlManipulator())
+		useCase := decrypt.NewDecrypt(encryptionService, documentManipulator.NewYamlManipulator())
 		result, err := useCase.Execute(data)
 		if err != nil {
 			return err

@@ -28,18 +28,19 @@ tasks:
       - ${BINARY_PATH}
 
   format:
+    desc: "Format go files with `go fmt`"
     cmds:
       - go fmt $({{ .CMD_LIST_PACKAGES }})
 
+  # Quick tests such as fmt and vet
   lint:
-    desc: "Quick tests such as fmt and vet"
     cmds:
       - dep check
-#      - if [ ! -z $(gofmt -e -l **/*.go) ]; then
-#        echo "Files with formatting errors:";
-#        gofmt -e -l **/*.go;
-#        exit 1;
-#        fi
+      - if [ ! -z $(gofmt -e -l **/*.go) ]; then
+        echo "Files with formatting errors:";
+        gofmt -e -l **/*.go;
+        exit 1;
+        fi
       - go vet $({{ .CMD_LIST_PACKAGES }})
     deps: [build]
 

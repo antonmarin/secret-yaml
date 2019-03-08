@@ -1,4 +1,4 @@
-package useCases
+package decrypt
 
 import (
 	"gopkg.in/yaml.v2"
@@ -25,7 +25,7 @@ func TestDecrypt_Execute(t *testing.T) {
 type DummyDecryptEncryptionService struct {
 }
 
-func (DummyDecryptEncryptionService) Encrypt([]byte) (data []byte, err error) {
+func (DummyDecryptEncryptionService) Decrypt([]byte) (data []byte, err error) {
 	return data, nil
 }
 

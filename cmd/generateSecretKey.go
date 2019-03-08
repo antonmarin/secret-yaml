@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/antonmarin/secret-yaml/generateRandom"
-	"github.com/antonmarin/secret-yaml/useCases"
+	"github.com/antonmarin/secret-yaml/useCases/generateSecretKey"
 
 	"github.com/spf13/cobra"
 )
@@ -17,7 +17,7 @@ var generateSecretKeyCmd = &cobra.Command{
 encrypt/decrypt and outputs it to stdout.
 Store it somewhere!`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		useCase := useCases.NewGenerateSecretKey(new(generateRandom.CryptoGeneratorService))
+		useCase := generateSecretKey.NewGenerateSecretKey(new(generateRandom.CryptoGeneratorService))
 		result, err := useCase.Execute()
 		if err != nil {
 			return err
