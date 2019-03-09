@@ -21,13 +21,30 @@ jobs:
       after_success:
         - codeclimate-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
     - stage: release
-      install:
+      os: osx
+      before_deploy:
+        - wget -qO - "https://github.com/go-task/task/releases/download/v2.2.1/task_darwin_amd64.tar.gz" |
+          tar zxf - -C /tmp task;
+          ls -la /tmp/task
+        - export PATH=$PATH:/tmp
+        - task --version
+        - BINARY_PATH="release/syml" GOOS=darwin GOARCH=amd64 task compile
+        - ls release/
+      deploy:
+        provider: releases
+        api_key: $GITHUB_OAUTH_TOKEN
+        skip_cleanup: true
+        file: release/syml-darwin
+        on:
+          tags: true
+    - stage: release
+      os: linux
+      before_deploy:
         - wget -qO - "https://github.com/go-task/task/releases/download/v2.2.1/task_linux_amd64.tar.gz" |
           tar zxf - -C /tmp task;
           ls -la /tmp/task
         - export PATH=$PATH:/tmp
         - task --version
-      script:
         - BINARY_PATH="release/syml" GOOS=linux GOARCH=amd64 task compile
         - ls release/
       deploy:
@@ -36,4 +53,4 @@ jobs:
         skip_cleanup: true
         file: release/syml-linux
         on:
-          tags: true  
+          tags: true
