@@ -16,7 +16,7 @@ chmod +x /usr/local/bin/syml
 
 ## Usage
 
-- `SYML_SECRET=$(syml generateSecretKey)` 
+- `export SYML_SECRET=$(syml generateSecretKey)` 
 generate secret and store inside env variable
 - `syml encrypt --secret=${SYML_SECRET} 
 ~/decryptedSecrets/secret.yaml > ~/encryptedSecrets/secret.yaml`
