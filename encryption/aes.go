@@ -13,6 +13,7 @@ type AesEncryptionService struct {
 }
 
 func NewAesEncryptionService(secret string) (*AesEncryptionService, error) {
+	// todo: do smth with `32`
 	if len(secret) != 32 {
 		return nil, fmt.Errorf("secret should be 32 byte length")
 	}
@@ -21,7 +22,10 @@ func NewAesEncryptionService(secret string) (*AesEncryptionService, error) {
 }
 
 func (service AesEncryptionService) Encrypt(data []byte) ([]byte, error) {
-	block, _ := aes.NewCipher(service.secret)
+	block, err := aes.NewCipher(service.secret)
+	if err != nil {
+		return nil, err
+	}
 	gcm, err := cipher.NewGCM(block)
 	if err != nil {
 		return nil, err
