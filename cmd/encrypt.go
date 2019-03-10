@@ -55,7 +55,3 @@ func init() {
 		panic(fmt.Errorf("Fatal error: %s \n", err))
 	}
 }
-
-type EncryptCommandUseCase interface {
-	Execute(yaml string) (string, error)
-}

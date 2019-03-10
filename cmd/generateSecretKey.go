@@ -30,7 +30,3 @@ Store it somewhere!`,
 func init() {
 	rootCmd.AddCommand(generateSecretKeyCmd)
 }
-
-type GenerateSecretKeyCommandUseCase interface {
-	Execute() ([]byte, error)
-}
