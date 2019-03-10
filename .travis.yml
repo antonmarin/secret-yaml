@@ -11,15 +11,16 @@ jobs:
         - wget -qO - "https://github.com/go-task/task/releases/download/v2.2.1/task_linux_amd64.tar.gz" |
           tar zxf - -C /tmp task;
           ls -la /tmp/task
-        - wget -qO - https://codeclimate.com/downloads/test-reporter/test-reporter-0.6.3-linux-amd64 > /tmp/codeclimate-test-reporter;
-          chmod +x /tmp/codeclimate-test-reporter
+        - wget -qO - https://codeclimate.com/downloads/test-reporter/test-reporter-0.6.4-linux-amd64 > /tmp/cc-test-reporter;
+          chmod +x /tmp/cc-test-reporter
         - export PATH=$PATH:/tmp
         - task --version
+      before_script:
+        - cc-test-reporter before-build
       script:
-        - codeclimate-test-reporter before-build
         - task test
       after_script:
-        - codeclimate-test-reporter after-build -t gocov --exit-code $TRAVIS_TEST_RESULT
+        - cc-test-reporter after-build -t gocov --exit-code $TRAVIS_TEST_RESULT --debug
     - stage: release
       os: osx
       before_deploy:
