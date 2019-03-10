@@ -7,6 +7,7 @@ type encrypt struct {
 	documentManipulator YamlManipulator
 }
 
+//NewEncrypt constructor of encrypt use case
 func NewEncrypt(encryptionService EncryptionService, documentManipulator YamlManipulator) *encrypt {
 	return &encrypt{encryptionService: encryptionService, documentManipulator: documentManipulator}
 }

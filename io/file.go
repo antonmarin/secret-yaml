@@ -18,6 +18,7 @@ func (file file) AsString() (string, error) {
 	return string(bytes), nil
 }
 
+//NewFile creates new file input
 func NewFile(path string) *file {
 	return &file{path: path}
 }
