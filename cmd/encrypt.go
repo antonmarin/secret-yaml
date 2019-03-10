@@ -52,6 +52,6 @@ func init() {
 
 	encryptCmd.Flags().String("secret", "", "Secret key to encode with")
 	if err := encryptCmd.MarkFlagRequired("secret"); err != nil {
-		panic(fmt.Errorf("Fatal error: %s \n", err))
+		panic(fmt.Errorf("fatal error: %s", err))
 	}
 }
