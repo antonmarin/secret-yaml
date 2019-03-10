@@ -1,8 +1,6 @@
 package encrypt
 
-import (
-	"gopkg.in/yaml.v2"
-)
+import "gopkg.in/yaml.v2"
 
 type encrypt struct {
 	encryptionService   EncryptionService
