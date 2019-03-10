@@ -13,7 +13,7 @@ var generateSecretKeyCmd = &cobra.Command{
 	Use:     "generateSecretKey",
 	Aliases: []string{"gensec"},
 	Short:   "Generate secret key to encrypt/decrypt values",
-	Long: `Generates AES secret key to use later with 
+	Long: `Generates AES secret key to use later with
 encrypt/decrypt and outputs it to stdout.
 Store it somewhere!`,
 	RunE: func(cmd *cobra.Command, args []string) error {

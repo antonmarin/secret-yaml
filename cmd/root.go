@@ -8,7 +8,7 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "syml",
 	Short: "Tool to secret yaml values",
-	Long: `Tool to secret yaml values. 
+	Long: `Tool to secret yaml values.
 Made to be quickly installed right in your ci pipeline.
 
 Base usage scenario:

@@ -52,7 +52,7 @@ func init() {
 
 	decryptCmd.Flags().String("secret", "", "Secret key to decode with")
 	if err := decryptCmd.MarkFlagRequired("secret"); err != nil {
-		panic(fmt.Errorf("Fatal error: %s \n", err))
+		panic(fmt.Errorf("fatal error: %s", err))
 	}
 }
 
