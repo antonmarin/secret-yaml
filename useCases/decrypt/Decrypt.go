@@ -1,12 +1,12 @@
-/*
-Package decrypt use case decrypts data with `encryptionService` using `documentManipulator`.
-`encryptionService` encapsulates logic of encrypting, and `documentManipulator`
-handles data as document to encrypt all or part of data.
-*/
 package decrypt
 
 import "gopkg.in/yaml.v2"
 
+/*
+decrypt use case decrypts data with `encryptionService` using `documentManipulator`.
+`encryptionService` encapsulates logic of encrypting, and `documentManipulator`
+handles data as document to encrypt all or part of data.
+*/
 type decrypt struct {
 	encryptionService   DecryptionService
 	documentManipulator YamlManipulator
