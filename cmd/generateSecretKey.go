@@ -17,7 +17,7 @@ var generateSecretKeyCmd = &cobra.Command{
 encrypt/decrypt and outputs it to stdout.
 Store it somewhere!`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		useCase := generateSecretKey.NewGenerateSecretKey(new(generateRandom.CryptoGeneratorService))
+		useCase := generateSecretKey.New(new(generateRandom.CryptoGeneratorService))
 		result, err := useCase.Execute()
 		if err != nil {
 			return err

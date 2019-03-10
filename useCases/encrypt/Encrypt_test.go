@@ -6,7 +6,7 @@ import (
 )
 
 func TestEncrypt_Execute(t *testing.T) {
-	useCase := NewEncrypt(new(DummyEncryptionService), new(FakeYamlDocumentManipulator))
+	useCase := New(new(DummyEncryptionService), new(FakeYamlDocumentManipulator))
 	var resultOfEncrypt interface{}
 	var err interface{}
 	var expectedData interface{}

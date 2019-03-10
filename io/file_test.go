@@ -7,14 +7,14 @@ import (
 )
 
 func TestNewFile(t *testing.T) {
-	file := NewFile("path/to/file")
+	file := New("path/to/file")
 	if file == nil {
 		t.Errorf("Should create file")
 	}
 }
 func TestFile_AsBytes(t *testing.T) {
 	path := filepath.Join("../testdata", "simple.yml")
-	file := NewFile(path)
+	file := New(path)
 	expectedData := []byte(`---
 some: value
 `)
@@ -29,7 +29,7 @@ some: value
 }
 func TestFile_AsString(t *testing.T) {
 	path := filepath.Join("..", "testdata", "simple.yml")
-	file := NewFile(path)
+	file := New(path)
 	expectedData := `---
 some: value
 `

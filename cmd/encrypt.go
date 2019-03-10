@@ -22,17 +22,17 @@ var encryptCmd = &cobra.Command{
 		secret := flag.String("secret", "", "")
 		flag.Parse()
 
-		inputFile := io.NewFile(args[0])
+		inputFile := io.New(args[0])
 		data, err := inputFile.AsString()
 		if err != nil {
 			return err
 		}
-		encryptionService, err := encryption.NewAesEncryptionService(*secret)
+		encryptionService, err := encryption.New(*secret)
 		if err != nil {
 			return err
 		}
 
-		useCase := encrypt.NewEncrypt(encryptionService, documentManipulator.NewYamlManipulator())
+		useCase := encrypt.New(encryptionService, documentManipulator.New())
 		result, err := useCase.Execute(data)
 		if err != nil {
 			return err

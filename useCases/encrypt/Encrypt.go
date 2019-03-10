@@ -4,16 +4,16 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-type Encrypt struct {
+type encrypt struct {
 	encryptionService   EncryptionService
 	documentManipulator YamlManipulator
 }
 
-func NewEncrypt(encryptionService EncryptionService, documentManipulator YamlManipulator) *Encrypt {
-	return &Encrypt{encryptionService: encryptionService, documentManipulator: documentManipulator}
+func New(encryptionService EncryptionService, documentManipulator YamlManipulator) *encrypt {
+	return &encrypt{encryptionService: encryptionService, documentManipulator: documentManipulator}
 }
 
-func (useCase Encrypt) Execute(dataYaml string) (string, error) {
+func (useCase encrypt) Execute(dataYaml string) (string, error) {
 	document := make(yaml.MapSlice, 0)
 	err := yaml.Unmarshal([]byte(dataYaml), &document)
 	if err != nil {

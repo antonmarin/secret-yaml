@@ -6,7 +6,7 @@ import (
 )
 
 func TestNewAesEncryptionService_ShouldCreateWith32byteKey(t *testing.T) {
-	_, err := NewAesEncryptionService("fbd7908e8ccdf67d472995a5c54ea72f")
+	_, err := New("fbd7908e8ccdf67d472995a5c54ea72f")
 	if err != nil {
 		t.Errorf("Should not error with valid secret. Error: %s", err)
 	}
@@ -14,7 +14,7 @@ func TestNewAesEncryptionService_ShouldCreateWith32byteKey(t *testing.T) {
 
 func TestNewAesEncryptionService_ShouldFailWithNot32byteKey(t *testing.T) {
 	secret := "someBadSecret"
-	_, err := NewAesEncryptionService(secret)
+	_, err := New(secret)
 	if err == nil {
 		t.Errorf("Should error on not valid secret. Secret was: %s", secret)
 	}
@@ -22,7 +22,7 @@ func TestNewAesEncryptionService_ShouldFailWithNot32byteKey(t *testing.T) {
 
 func TestAesEncryptionService_DecryptedShouldEqualSource(t *testing.T) {
 	//noinspection SpellCheckingInspection
-	service, _ := NewAesEncryptionService("fbd7908e8ccdf67d472995a5c54ea72f")
+	service, _ := New("fbd7908e8ccdf67d472995a5c54ea72f")
 
 	sourceData := []byte("someValue")
 

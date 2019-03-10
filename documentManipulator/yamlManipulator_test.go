@@ -11,7 +11,7 @@ func returnStatic([]byte) ([]byte, error) {
 	return []byte("staticValue"), nil
 }
 func TestYamlManipulator_ApplyToLeafs_ShouldApplyOnlyToLeafsOfMapItem(t *testing.T) {
-	manipulator := NewYamlManipulator()
+	manipulator := New()
 	var expectedData []byte
 	var err error
 
@@ -39,7 +39,7 @@ func TestYamlManipulator_ApplyToLeafs_ShouldApplyOnlyToLeafsOfMapItem(t *testing
 }
 
 func TestYamlManipulator_ApplyToLeafs_ShouldApplyOnlyToLeafsOfMapSlice(t *testing.T) {
-	manipulator := NewYamlManipulator()
+	manipulator := New()
 	nestedData := `---
 someKey:
   nestedKey: someValue`

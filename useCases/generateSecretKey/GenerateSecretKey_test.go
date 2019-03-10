@@ -13,7 +13,7 @@ func (StubSecretKeyGenerator) GenerateSecretKey() ([]byte, error) {
 }
 
 func TestGenerateSecretKey_Execute(t *testing.T) {
-	useCase := NewGenerateSecretKey(new(StubSecretKeyGenerator))
+	useCase := New(new(StubSecretKeyGenerator))
 	result, err := useCase.Execute()
 	if err != nil {
 		t.Errorf("Should not fail. Error: %s", err)
