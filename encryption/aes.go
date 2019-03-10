@@ -8,20 +8,20 @@ import (
 	"io"
 )
 
-type AesEncryptionService struct {
+type aesEncryptionService struct {
 	secret []byte
 }
 
-func NewAesEncryptionService(secret string) (*AesEncryptionService, error) {
+func NewAesEncryptionService(secret string) (*aesEncryptionService, error) {
 	// todo: do smth with `32`
 	if len(secret) != 32 {
 		return nil, fmt.Errorf("secret should be 32 byte length")
 	}
 
-	return &AesEncryptionService{secret: []byte(secret)}, nil
+	return &aesEncryptionService{secret: []byte(secret)}, nil
 }
 
-func (service AesEncryptionService) Encrypt(data []byte) ([]byte, error) {
+func (service aesEncryptionService) Encrypt(data []byte) ([]byte, error) {
 	block, err := aes.NewCipher(service.secret)
 	if err != nil {
 		return nil, err
@@ -38,7 +38,7 @@ func (service AesEncryptionService) Encrypt(data []byte) ([]byte, error) {
 	return cipherText, nil
 }
 
-func (service AesEncryptionService) Decrypt(data []byte) ([]byte, error) {
+func (service aesEncryptionService) Decrypt(data []byte) ([]byte, error) {
 	block, err := aes.NewCipher(service.secret)
 	if err != nil {
 		return nil, err
