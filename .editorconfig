@@ -31,5 +31,5 @@ trim_trailing_whitespace = false
 [Makefile]
 indent_style = tab
 
-[Gopkg.toml]
+[Gopkg.*]
 indent_size = 2
