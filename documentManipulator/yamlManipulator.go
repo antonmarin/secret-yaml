@@ -5,14 +5,14 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-type YamlManipulator struct {
+type yamlManipulator struct {
 }
 
-func NewYamlManipulator() *YamlManipulator {
-	return &YamlManipulator{}
+func NewYamlManipulator() *yamlManipulator {
+	return &yamlManipulator{}
 }
 
-func (manipulator YamlManipulator) ApplyToLeafs(callback func([]byte) ([]byte, error), data interface{}) (interface{}, error) {
+func (manipulator yamlManipulator) ApplyToLeafs(callback func([]byte) ([]byte, error), data interface{}) (interface{}, error) {
 	switch data.(type) {
 	case yaml.MapSlice:
 		result := make(yaml.MapSlice, len(data.(yaml.MapSlice)))

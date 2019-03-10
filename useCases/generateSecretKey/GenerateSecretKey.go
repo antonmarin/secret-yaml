@@ -1,14 +1,14 @@
 package generateSecretKey
 
-type GenerateSecretKey struct {
+type generateSecretKey struct {
 	generator SecretKeyGenerator
 }
 
-func NewGenerateSecretKey(generator SecretKeyGenerator) *GenerateSecretKey {
-	return &GenerateSecretKey{generator: generator}
+func NewGenerateSecretKey(generator SecretKeyGenerator) *generateSecretKey {
+	return &generateSecretKey{generator: generator}
 }
 
-func (useCase GenerateSecretKey) Execute() ([]byte, error) {
+func (useCase generateSecretKey) Execute() ([]byte, error) {
 	return useCase.generator.GenerateSecretKey()
 }
 

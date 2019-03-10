@@ -2,16 +2,16 @@ package decrypt
 
 import "gopkg.in/yaml.v2"
 
-type Decrypt struct {
+type decrypt struct {
 	encryptionService   DecryptionService
 	documentManipulator YamlManipulator
 }
 
-func NewDecrypt(encryptionService DecryptionService, documentManipulator YamlManipulator) *Decrypt {
-	return &Decrypt{encryptionService: encryptionService, documentManipulator: documentManipulator}
+func NewDecrypt(encryptionService DecryptionService, documentManipulator YamlManipulator) *decrypt {
+	return &decrypt{encryptionService: encryptionService, documentManipulator: documentManipulator}
 }
 
-func (useCase Decrypt) Execute(dataYaml string) (string, error) {
+func (useCase decrypt) Execute(dataYaml string) (string, error) {
 	document := make(yaml.MapSlice, 0)
 	err := yaml.Unmarshal([]byte(dataYaml), &document)
 	if err != nil {
