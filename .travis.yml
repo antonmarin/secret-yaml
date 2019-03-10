@@ -20,7 +20,7 @@ jobs:
       script:
         - task test
       after_script:
-        - cc-test-reporter after-build -t gocov --exit-code $TRAVIS_TEST_RESULT
+        - cc-test-reporter after-build -t gocov --exit-code $TRAVIS_TEST_RESULT --debug
     - stage: release
       os: osx
       before_deploy:
