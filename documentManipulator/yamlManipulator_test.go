@@ -64,3 +64,31 @@ someKey:
 		t.Errorf("Should apply function to leafs of yaml tree.\nExpected:\n%s\nActual:\n%s", expectedData, outputData)
 	}
 }
+
+func TestYamlManipulator_ApplyToLeafs_ShouldApplyOnlyToLeafsOfMapSliceOfItems(t *testing.T) {
+	manipulator := NewYamlManipulator()
+	nestedData := `---
+someKey:
+  - nestedKey1: someValue
+  - nestedKey2: someValue`
+	expectedData := []byte("someKey:\n- nestedKey1: staticValue\n- nestedKey2: staticValue\n")
+
+	document := make(yaml.MapSlice, 0)
+	err := yaml.Unmarshal([]byte(nestedData), &document)
+	if err != nil {
+		t.Errorf("Should not error on valid yaml. Error: %s", err)
+	}
+
+	outputData, err := manipulator.ApplyToLeafs(returnStatic, document)
+	if err != nil {
+		t.Errorf("Should not error on valid yaml. Error: %s", err)
+	}
+	outputDataBytes, err := yaml.Marshal(outputData)
+	if err != nil {
+		t.Errorf("Should not error on valid yaml. Error: %s", err)
+	}
+
+	if !bytes.Equal(expectedData, outputDataBytes) {
+		t.Errorf("Should apply function to leafs of yaml tree.\nExpected:\n%s\nActual:\n%s", expectedData, outputData)
+	}
+}
