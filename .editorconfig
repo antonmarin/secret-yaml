@@ -18,7 +18,7 @@ insert_final_newline = true
 indent_style = tab
 
 [*.md]
-trim_trailing_whitespace = false
+indent_size = unset
 
 [*.sh]
 indent_style = tab
