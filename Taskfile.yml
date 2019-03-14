@@ -46,11 +46,15 @@ tasks:
       - go vet $({{ .CMD_LIST_PACKAGES }})
     deps: [build]
 
-  test:
-    desc: "Test application"
+  qa:
     cmds:
-      - go test -race -coverprofile=c.out $({{ .CMD_LIST_PACKAGES }})
-    deps: [lint]
+      - docker run
+        --interactive --tty --rm
+        --env CODECLIMATE_CODE="$PWD"
+        --volume "$PWD":/code
+        --volume /var/run/docker.sock:/var/run/docker.sock
+        --volume /tmp/cc:/tmp/cc
+        codeclimate/codeclimate analyze
 
   require-cobra:
     cmds:
@@ -62,3 +66,9 @@ tasks:
       - curl https://raw.githubusercontent.com/golang/dep/{{ .VERSION_DEP }}/install.sh | sh
     status:
       - test -f "$(command -v dep)"
+
+  test:
+    desc: "Test application"
+    cmds:
+      - go test -race -coverprofile=c.out $({{ .CMD_LIST_PACKAGES }})
+    deps: [lint]

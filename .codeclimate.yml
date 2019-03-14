@@ -1,0 +1,22 @@
+version: "2"
+plugins:
+  editorconfig:
+    enabled: true
+  fixme:
+    enabled: true
+  gofmt:
+    enabled: true
+  golint:
+    enabled: true
+  govet:
+    enabled: true
+  markdownlint:
+    enabled: true
+  duplication:
+    enabled: true
+exclude_patterns:
+  - ".idea"
+  - "release/"
+  - "**/vendor/"
+  - "**/*_test.go"
+  - "**/*.d.ts"
