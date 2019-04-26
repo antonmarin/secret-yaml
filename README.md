@@ -15,7 +15,7 @@ which you can quickly install right inside your pipeline
 
 ```
 export OS=$(uname | tr '[:upper:]' '[:lower:]')
-curl -LsSo /usr/local/bin/syml https://github.com/antonmarin/secret-yaml/releases/latest/download/syml-${OS}
+curl -LsSo /usr/local/bin/syml https://github.com/antonmarin/secret-yaml/releases/latest/download/syml-$OS
 chmod +x /usr/local/bin/syml
 ```
 
