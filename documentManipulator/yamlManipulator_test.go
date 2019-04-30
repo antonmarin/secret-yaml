@@ -15,11 +15,11 @@ func TestYamlManipulator_ApplyToLeafs_ShouldApplyOnlyToLeafsOfMapItem(t *testing
 	var expectedData []byte
 	var err error
 
-	simpleData := `someKey: someValue`
+	simpleData := []byte(`someKey: someValue`)
 	expectedData = []byte("someKey: staticValue\n")
 
 	document := make(yaml.MapSlice, 0)
-	err = yaml.Unmarshal([]byte(simpleData), &document)
+	err = yaml.Unmarshal(simpleData, &document)
 	if err != nil {
 		t.Errorf("Should not error on valid yaml. Error: %s", err)
 	}
@@ -90,5 +90,29 @@ someKey:
 
 	if !bytes.Equal(expectedData, outputDataBytes) {
 		t.Errorf("Should apply function to leafs of yaml tree.\nExpected:\n%s\nActual:\n%s", expectedData, outputData)
+	}
+}
+
+func TestYamlManipulator_ApplyToLeafs_ShouldApplyOnlyEncryptableValues(t *testing.T) {
+	manipulator := NewYamlManipulator()
+	data := []byte("someKey: true\n")
+
+	document := make(yaml.MapSlice, 0)
+	err := yaml.Unmarshal([]byte(data), &document)
+	if err != nil {
+		t.Errorf("Should not error on valid yaml. Error: %s", err)
+	}
+
+	outputData, err := manipulator.ApplyToLeafs(returnStatic, document)
+	if err != nil {
+		t.Errorf("Should not error on valid yaml. Error: %s", err)
+	}
+	outputDataBytes, err := yaml.Marshal(outputData)
+	if err != nil {
+		t.Errorf("Should not error on valid yaml. Error: %s", err)
+	}
+
+	if !bytes.Equal(data, outputDataBytes) {
+		t.Errorf("Should apply callback only to encryptable values.\nExpected:\n%s\nActual:\n%s", data, outputData)
 	}
 }
