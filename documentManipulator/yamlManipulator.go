@@ -1,8 +1,11 @@
 package documentManipulator
 
 import (
+	"bytes"
+	"encoding/gob"
 	"fmt"
 	"gopkg.in/yaml.v2"
+	"reflect"
 )
 
 type yamlManipulator struct {
@@ -53,11 +56,42 @@ func (manipulator yamlManipulator) ApplyToLeafs(callback func([]byte) ([]byte, e
 
 		return result, nil
 	default:
-		result, err := callback([]byte(fmt.Sprintf("%v", data)))
+		isEncryptable, err := manipulator.isValueEncryptable(data)
+		if err != nil {
+			return nil, err
+		}
+		if isEncryptable == false {
+			//log incoming value can not be converted to encryptable value
+			return data, nil
+		}
+
+		dataBytes, err := manipulator.castValueToBytes(data)
+		if err != nil {
+			return nil, err
+		}
+
+		result, err := callback(dataBytes)
 		if err != nil {
 			return nil, err
 		}
 
 		return string(result), nil
 	}
+}
+
+func (manipulator yamlManipulator) isValueEncryptable(value interface{}) (bool, error) {
+	if fmt.Sprint(reflect.TypeOf(value)) == "bool" {
+		return false, nil
+	}
+	return true, nil
+}
+
+func (manipulator yamlManipulator) castValueToBytes(value interface{}) ([]byte, error) {
+	var buf bytes.Buffer
+	enc := gob.NewEncoder(&buf)
+	err := enc.Encode(value)
+	if err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
 }
