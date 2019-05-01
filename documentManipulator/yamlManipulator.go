@@ -1,8 +1,6 @@
 package documentManipulator
 
 import (
-	"bytes"
-	"encoding/gob"
 	"fmt"
 	"gopkg.in/yaml.v2"
 	"reflect"
@@ -87,11 +85,5 @@ func (manipulator yamlManipulator) isValueEncryptable(value interface{}) (bool, 
 }
 
 func (manipulator yamlManipulator) castValueToBytes(value interface{}) ([]byte, error) {
-	var buf bytes.Buffer
-	enc := gob.NewEncoder(&buf)
-	err := enc.Encode(value)
-	if err != nil {
-		return nil, err
-	}
-	return buf.Bytes(), nil
+	return []byte(fmt.Sprintf("%v", value)), nil
 }

@@ -1,37 +1,30 @@
 package decrypt
 
 import (
-	"gopkg.in/yaml.v2"
+	"github.com/antonmarin/secret-yaml/documentManipulator"
+	"github.com/antonmarin/secret-yaml/encryption"
 	"testing"
 )
 
-func TestDecrypt_Execute(t *testing.T) {
-	useCase := NewDecrypt(new(DummyDecryptEncryptionService), new(FakeDecryptYamlDocumentManipulator))
-	var resultOfEncrypt interface{}
+func TestDecrypt_IntegrationAes(t *testing.T) {
 	var err interface{}
+
+	encryptionService, err := encryption.NewAesEncryptionService("75b3703e27e300afffe2aa7ba047c930")
+	if err != nil {
+		t.Error(err)
+	}
+	useCase := NewDecrypt(encryptionService, documentManipulator.NewYamlManipulator())
+
+	var resultOfEncrypt interface{}
 	var expectedData interface{}
 
-	simpleData := `key: encryptedValue`
-	resultOfEncrypt, err = useCase.Execute(simpleData)
+	data := `some: !!binary lu91bQLWkSHjiGyY+d5psHQjdoWUYCKxQcg/vAJw5bH1`
+	expectedData = "some: value\n"
+	resultOfEncrypt, err = useCase.Execute(data)
 	if err != nil {
-		t.Errorf("Should not fail if simpleData valid. Error: %s", err)
+		t.Errorf("Should not fail if data valid. Error: %s", err)
 	}
-	expectedData = "key: decryptedValue\n"
 	if expectedData != resultOfEncrypt {
 		t.Errorf("Should decrypt with service and manipulator.\nExpected:\n%s\nGot:\n%s", expectedData, resultOfEncrypt)
 	}
-}
-
-type DummyDecryptEncryptionService struct {
-}
-
-func (DummyDecryptEncryptionService) Decrypt([]byte) (data []byte, err error) {
-	return data, nil
-}
-
-type FakeDecryptYamlDocumentManipulator struct {
-}
-
-func (FakeDecryptYamlDocumentManipulator) ApplyToLeafs(callback func([]byte) ([]byte, error), data interface{}) (interface{}, error) {
-	return yaml.MapSlice{yaml.MapItem{Key: "key", Value: "decryptedValue"}}, nil
 }
