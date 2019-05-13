@@ -23,7 +23,7 @@ tasks:
         echo "Going to compile to ${COMPILE_PATH}" &&
         export BINARY_PATH=${COMPILE_PATH};
         fi;
-        go build -race -ldflags "-s -w -extldflags '-static'" -o ${BINARY_PATH}-{{ .GOOS }}
+        go build -a -ldflags "-s -w -extldflags '-static'" -o ${BINARY_PATH}-{{ .GOOS }}
     sources:
       - "**/*.go"
     generates:
