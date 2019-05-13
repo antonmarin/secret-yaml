@@ -46,7 +46,7 @@ jobs:
           ls -la /tmp/task
         - export PATH=$PATH:/tmp
         - task --version
-        - BINARY_PATH="release/syml" GOOS=linux GOARCH=amd64 task compile
+        - BINARY_PATH="release/syml" CGO_ENABLED=0 GOOS=linux GOARCH=amd64 task compile
         - ls release/
       deploy:
         provider: releases
