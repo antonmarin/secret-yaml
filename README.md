@@ -6,8 +6,9 @@
 
 ## Goal
 
-Lightweight tool to secret yaml values,
-which you can quickly install right inside your pipeline
+Lightweight tool to encrypt yaml values,
+which you can quickly install right inside your pipeline.
+Usable when you don't need centralized secrets management.
 
 ## Install
 
