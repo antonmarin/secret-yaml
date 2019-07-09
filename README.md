@@ -29,6 +29,6 @@ chmod +x /usr/local/bin/syml
   ~/encryptedSecrets/secret.yaml > ~/decryptedSecrets/secret.yaml`
   decrypt values inside yaml-file and save to new file
 
-[![asciicast](https://asciinema.org/a/256375.svg)](https://asciinema.org/a/256375)
+[![asciicast](https://asciinema.org/a/256378.svg)](https://asciinema.org/a/256378)
 
 `syml help` to get more about usage
