@@ -3,6 +3,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/e047b9311147b1e8b419/maintainability)](https://codeclimate.com/github/antonmarin/secret-yaml/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e047b9311147b1e8b419/test_coverage)](https://codeclimate.com/github/antonmarin/secret-yaml/test_coverage)
 [![Build Status](https://travis-ci.org/antonmarin/secret-yaml.svg?branch=master)](https://travis-ci.org/antonmarin/secret-yaml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/antonmarin/secret-yaml)](https://goreportcard.com/report/github.com/antonmarin/secret-yaml)
 
 ## Goal
 
