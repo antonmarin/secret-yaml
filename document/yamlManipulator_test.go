@@ -1,4 +1,4 @@
-package documentManipulator
+package document
 
 import (
 	"bytes"
