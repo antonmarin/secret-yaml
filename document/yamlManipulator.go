@@ -6,14 +6,18 @@ import (
 	"reflect"
 )
 
-type yamlManipulator struct {
+//YamlManipulator can modify Yaml documents.
+//Don't create it directly! Use constructor NewYamlManipulator instead!
+type YamlManipulator struct {
 }
 
-func NewYamlManipulator() *yamlManipulator {
-	return &yamlManipulator{}
+//NewYamlManipulator creates YamlManipulator structure.
+func NewYamlManipulator() *YamlManipulator {
+	return &YamlManipulator{}
 }
 
-func (manipulator yamlManipulator) ApplyToLeafs(callback func([]byte) ([]byte, error), data interface{}) (interface{}, error) {
+//ApplyToLeafs go through the tree of document and applies some callback to leafs
+func (manipulator YamlManipulator) ApplyToLeafs(callback func([]byte) ([]byte, error), data interface{}) (interface{}, error) {
 	switch data.(type) {
 	case yaml.MapSlice:
 		result := make(yaml.MapSlice, len(data.(yaml.MapSlice)))
@@ -77,13 +81,13 @@ func (manipulator yamlManipulator) ApplyToLeafs(callback func([]byte) ([]byte, e
 	}
 }
 
-func (manipulator yamlManipulator) isValueEncryptable(value interface{}) (bool, error) {
+func (manipulator YamlManipulator) isValueEncryptable(value interface{}) (bool, error) {
 	if fmt.Sprint(reflect.TypeOf(value)) == "bool" {
 		return false, nil
 	}
 	return true, nil
 }
 
-func (manipulator yamlManipulator) castValueToBytes(value interface{}) ([]byte, error) {
+func (manipulator YamlManipulator) castValueToBytes(value interface{}) ([]byte, error) {
 	return []byte(fmt.Sprintf("%v", value)), nil
 }
