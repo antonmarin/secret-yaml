@@ -1,4 +1,4 @@
-package generateRandom
+package random
 
 import (
 	"crypto/rand"
