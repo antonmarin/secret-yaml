@@ -44,8 +44,8 @@ tasks:
         exit 1;
         fi
       - go vet $({{ .CMD_LIST_PACKAGES }})
-      - # Using $CMD_LIST_PACKAGES here breaks yaml 
-        go list ./... | grep -v /vendor/ | xargs -L1 golint -set_exit_status
+#      - # Using $CMD_LIST_PACKAGES here breaks yaml 
+#        go list ./... | grep -v /vendor/ | xargs -L1 golint -set_exit_status
     deps: [build, require-golint]
 
   qa:
