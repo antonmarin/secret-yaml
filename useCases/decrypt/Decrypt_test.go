@@ -1,7 +1,7 @@
 package decrypt
 
 import (
-	"github.com/antonmarin/secret-yaml/documentManipulator"
+	"github.com/antonmarin/secret-yaml/document"
 	"github.com/antonmarin/secret-yaml/encryption"
 	"testing"
 )
@@ -13,7 +13,7 @@ func TestDecrypt_IntegrationAes(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	useCase := NewDecrypt(encryptionService, documentManipulator.NewYamlManipulator())
+	useCase := NewDecrypt(encryptionService, document.NewYamlManipulator())
 
 	var resultOfEncrypt interface{}
 	var expectedData interface{}

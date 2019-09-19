@@ -44,7 +44,9 @@ tasks:
         exit 1;
         fi
       - go vet $({{ .CMD_LIST_PACKAGES }})
-    deps: [build]
+#      - # Using $CMD_LIST_PACKAGES here breaks yaml 
+#        go list ./... | grep -v /vendor/ | xargs -L1 golint -set_exit_status
+    deps: [build, require-golint]
 
   qa:
     cmds:
@@ -66,6 +68,11 @@ tasks:
       - curl https://raw.githubusercontent.com/golang/dep/{{ .VERSION_DEP }}/install.sh | sh
     status:
       - test -f "$(command -v dep)"
+  require-golint:
+    cmds:
+      - go get -u golang.org/x/lint/golint
+    status:
+      - test -f "$(command -v cobra)"
 
   test:
     desc: "Test application"

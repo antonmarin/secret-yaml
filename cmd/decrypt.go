@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/antonmarin/secret-yaml/documentManipulator"
+	"github.com/antonmarin/secret-yaml/document"
 	"github.com/antonmarin/secret-yaml/encryption"
 	"github.com/antonmarin/secret-yaml/io"
 	"github.com/antonmarin/secret-yaml/useCases/decrypt"
@@ -32,7 +32,7 @@ var decryptCmd = &cobra.Command{
 			return err
 		}
 
-		useCase := decrypt.NewDecrypt(encryptionService, documentManipulator.NewYamlManipulator())
+		useCase := decrypt.NewDecrypt(encryptionService, document.NewYamlManipulator())
 		result, err := useCase.Execute(data)
 		if err != nil {
 			return err

@@ -8,20 +8,24 @@ import (
 	"io"
 )
 
-type aesEncryptionService struct {
+//AesEncryptionService encrypts value using AES
+//Don't create it directly! Use constructor NewAesEncryptionService instead!
+type AesEncryptionService struct {
 	secret []byte
 }
 
-func NewAesEncryptionService(secret string) (*aesEncryptionService, error) {
+//NewAesEncryptionService creates AesEncryptionService structure.
+func NewAesEncryptionService(secret string) (*AesEncryptionService, error) {
 	// todo: do smth with `32`
 	if len(secret) != 32 {
 		return nil, fmt.Errorf("secret should be 32 byte length")
 	}
 
-	return &aesEncryptionService{secret: []byte(secret)}, nil
+	return &AesEncryptionService{secret: []byte(secret)}, nil
 }
 
-func (service aesEncryptionService) Encrypt(data []byte) ([]byte, error) {
+//Encrypt encrypts some []byte data
+func (service AesEncryptionService) Encrypt(data []byte) ([]byte, error) {
 	block, err := aes.NewCipher(service.secret)
 	if err != nil {
 		return nil, err
@@ -38,7 +42,8 @@ func (service aesEncryptionService) Encrypt(data []byte) ([]byte, error) {
 	return cipherText, nil
 }
 
-func (service aesEncryptionService) Decrypt(data []byte) ([]byte, error) {
+//Decrypt decrypts some []byte data
+func (service AesEncryptionService) Decrypt(data []byte) ([]byte, error) {
 	block, err := aes.NewCipher(service.secret)
 	if err != nil {
 		return nil, err
