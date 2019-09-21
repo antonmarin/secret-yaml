@@ -4,6 +4,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e047b9311147b1e8b419/test_coverage)](https://codeclimate.com/github/antonmarin/secret-yaml/test_coverage)
 [![Build Status](https://travis-ci.org/antonmarin/secret-yaml.svg?branch=master)](https://travis-ci.org/antonmarin/secret-yaml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/antonmarin/secret-yaml)](https://goreportcard.com/report/github.com/antonmarin/secret-yaml)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fantonmarin%2Fsecret-yaml.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fantonmarin%2Fsecret-yaml?ref=badge_shield)
 
 ## Goal
 
