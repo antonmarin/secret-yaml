@@ -5,9 +5,11 @@ import (
 	"encoding/hex"
 )
 
+//CryptoGeneratorService generates some random byte[] using crypto
 type CryptoGeneratorService struct {
 }
 
+//GenerateSecretKey generates some random byte[]
 func (service CryptoGeneratorService) GenerateSecretKey() ([]byte, error) {
 	randomBytes := make([]byte, 16)
 	if _, err := rand.Read(randomBytes); err != nil {

@@ -25,6 +25,6 @@ func TestDecrypt_IntegrationAes(t *testing.T) {
 		t.Errorf("Should not fail if data valid. Error: %s", err)
 	}
 	if expectedData != resultOfEncrypt {
-		t.Errorf("Should decrypt with service and manipulator.\nExpected:\n%s\nGot:\n%s", expectedData, resultOfEncrypt)
+		t.Errorf("Should Decrypt with service and manipulator.\nExpected:\n%s\nGot:\n%s", expectedData, resultOfEncrypt)
 	}
 }

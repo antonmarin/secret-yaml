@@ -2,14 +2,18 @@ package io
 
 import "io/ioutil"
 
-type file struct {
+//File represents some file in fs
+type File struct {
 	path string
 }
 
-func (file file) AsBytes() ([]byte, error) {
+//AsBytes returns file content as byte[]
+func (file File) AsBytes() ([]byte, error) {
 	return ioutil.ReadFile(file.path)
 }
-func (file file) AsString() (string, error) {
+
+//AsString returns file content as string
+func (file File) AsString() (string, error) {
 	bytes, err := ioutil.ReadFile(file.path)
 	if err != nil {
 		return "", err
@@ -18,7 +22,7 @@ func (file file) AsString() (string, error) {
 	return string(bytes), nil
 }
 
-//NewFile creates new file input
-func NewFile(path string) *file {
-	return &file{path: path}
+//NewFile creates new File input
+func NewFile(path string) *File {
+	return &File{path: path}
 }

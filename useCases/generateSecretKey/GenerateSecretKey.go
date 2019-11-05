@@ -12,6 +12,7 @@ func (useCase generateSecretKey) Execute() ([]byte, error) {
 	return useCase.generator.GenerateSecretKey()
 }
 
+//SecretKeyGenerator generates some random byte[]
 type SecretKeyGenerator interface {
 	GenerateSecretKey() ([]byte, error)
 }
