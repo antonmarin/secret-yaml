@@ -1,10 +1,11 @@
 # secret-yaml
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/e047b9311147b1e8b419/maintainability)](https://codeclimate.com/github/antonmarin/secret-yaml/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/e047b9311147b1e8b419/test_coverage)](https://codeclimate.com/github/antonmarin/secret-yaml/test_coverage)
+[![Coverage Status](https://coveralls.io/repos/github/antonmarin/secret-yaml/badge.svg?branch=master)](https://coveralls.io/github/antonmarin/secret-yaml?branch=master)
 [![Build Status](https://travis-ci.org/antonmarin/secret-yaml.svg?branch=master)](https://travis-ci.org/antonmarin/secret-yaml)
+[![GoDoc](https://godoc.org/github.com/antonmarin/secret-yaml?status.svg)](https://godoc.org/github.com/antonmarin/secret-yaml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/antonmarin/secret-yaml)](https://goreportcard.com/report/github.com/antonmarin/secret-yaml)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fantonmarin%2Fsecret-yaml.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fantonmarin%2Fsecret-yaml?ref=badge_shield)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fantonmarin%2Fsecret-yaml.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fantonmarin%2Fsecret-yaml?ref=badge_shield)
 
 ## Goal
 

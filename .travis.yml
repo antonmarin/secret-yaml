@@ -17,10 +17,12 @@ jobs:
         - task --version
       before_script:
         - cc-test-reporter before-build
+        - go get github.com/mattn/goveralls
       script:
         - task test
       after_script:
         - cc-test-reporter after-build -t gocov --exit-code $TRAVIS_TEST_RESULT --debug
+        - goveralls -coverprofile=c.out -service=travis-ci -repotoken $COVERALLS_TOKEN
     - stage: release
       os: osx
       before_deploy:
