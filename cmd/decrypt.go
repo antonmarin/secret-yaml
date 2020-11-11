@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/antonmarin/secret-yaml/document"
-	"github.com/antonmarin/secret-yaml/encryption"
+	encryption "github.com/antonmarin/secret-yaml/encryption/aes"
 	"github.com/antonmarin/secret-yaml/io"
 	"github.com/antonmarin/secret-yaml/useCases/decrypt"
 	flag "github.com/spf13/pflag"
@@ -27,7 +27,7 @@ var decryptCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		encryptionService, err := encryption.NewAesEncryptionService(*secret)
+		encryptionService, err := encryption.NewEncryptionService(*secret)
 		if err != nil {
 			return err
 		}

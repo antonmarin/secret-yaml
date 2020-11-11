@@ -2,14 +2,14 @@ package decrypt
 
 import (
 	"github.com/antonmarin/secret-yaml/document"
-	"github.com/antonmarin/secret-yaml/encryption"
+	encryption "github.com/antonmarin/secret-yaml/encryption/aes"
 	"testing"
 )
 
 func TestDecrypt_IntegrationAes(t *testing.T) {
 	var err interface{}
 
-	encryptionService, err := encryption.NewAesEncryptionService("75b3703e27e300afffe2aa7ba047c930")
+	encryptionService, err := encryption.NewEncryptionService("75b3703e27e300afffe2aa7ba047c930")
 	if err != nil {
 		t.Error(err)
 	}
