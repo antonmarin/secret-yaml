@@ -16,6 +16,8 @@ insert_final_newline = true
 
 [*.go]
 indent_style = tab
+[go.mod]
+indent_style = tab
 
 [*.md]
 indent_size = unset
