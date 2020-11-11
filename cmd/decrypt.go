@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/antonmarin/secret-yaml/document"
-	encryption "github.com/antonmarin/secret-yaml/encryption/aes"
+	encryption "github.com/antonmarin/secret-yaml/encryption/dummy"
 	"github.com/antonmarin/secret-yaml/io"
 	"github.com/antonmarin/secret-yaml/useCases/decrypt"
 	flag "github.com/spf13/pflag"
