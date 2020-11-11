@@ -10,7 +10,7 @@ vars:
 tasks:
   build:
     cmds:
-      - dep ensure
+      - go mod download
     deps: [require-dep]
 
   # Usage without prompt: `BINARY_PATH=path-to-bin task compile`
@@ -37,7 +37,7 @@ tasks:
   # Quick tests such as fmt and vet
   lint:
     cmds:
-      - dep check
+      - go mod verify 
       - if [ ! -z $(gofmt -e -l **/*.go) ]; then
         echo "Files with formatting errors:";
         gofmt -e -l **/*.go;
