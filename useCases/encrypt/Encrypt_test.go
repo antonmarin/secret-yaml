@@ -1,12 +1,13 @@
 package encrypt
 
 import (
+	encryption "github.com/antonmarin/secret-yaml/encryption/dummy"
 	"gopkg.in/yaml.v2"
 	"testing"
 )
 
 func TestEncrypt_Execute(t *testing.T) {
-	useCase := NewEncrypt(new(DummyEncryptionService), new(FakeYamlDocumentManipulator))
+	useCase := NewEncrypt(new(encryption.EncryptionService), new(FakeYamlDocumentManipulator))
 	var resultOfEncrypt interface{}
 	var err interface{}
 	var expectedData interface{}
@@ -20,13 +21,6 @@ func TestEncrypt_Execute(t *testing.T) {
 	if expectedData != resultOfEncrypt {
 		t.Errorf("Should encrypt with service and manipulator.\nExpected:\n%s\nGot:\n%s", expectedData, resultOfEncrypt)
 	}
-}
-
-type DummyEncryptionService struct {
-}
-
-func (DummyEncryptionService) Encrypt([]byte) (data []byte, err error) {
-	return data, nil
 }
 
 type FakeYamlDocumentManipulator struct {

@@ -1,4 +1,4 @@
-package encryption
+package aes
 
 import (
 	"crypto/aes"
@@ -8,24 +8,24 @@ import (
 	"io"
 )
 
-//AesEncryptionService encrypts value using AES
-//Don't create it directly! Use constructor NewAesEncryptionService instead!
-type AesEncryptionService struct {
+//EncryptionService encrypts value using AES
+//Don't create it directly! Use constructor NewEncryptionService instead!
+type EncryptionService struct {
 	secret []byte
 }
 
-//NewAesEncryptionService creates AesEncryptionService structure.
-func NewAesEncryptionService(secret string) (*AesEncryptionService, error) {
+//NewEncryptionService creates EncryptionService structure.
+func NewEncryptionService(secret string) (*EncryptionService, error) {
 	// todo: do smth with `32`
 	if len(secret) != 32 {
 		return nil, fmt.Errorf("secret should be 32 byte length")
 	}
 
-	return &AesEncryptionService{secret: []byte(secret)}, nil
+	return &EncryptionService{secret: []byte(secret)}, nil
 }
 
 //Encrypt encrypts some []byte data
-func (service AesEncryptionService) Encrypt(data []byte) ([]byte, error) {
+func (service EncryptionService) Encrypt(data []byte) ([]byte, error) {
 	block, err := aes.NewCipher(service.secret)
 	if err != nil {
 		return nil, err
@@ -43,7 +43,7 @@ func (service AesEncryptionService) Encrypt(data []byte) ([]byte, error) {
 }
 
 //Decrypt decrypts some []byte data
-func (service AesEncryptionService) Decrypt(data []byte) ([]byte, error) {
+func (service EncryptionService) Decrypt(data []byte) ([]byte, error) {
 	block, err := aes.NewCipher(service.secret)
 	if err != nil {
 		return nil, err
