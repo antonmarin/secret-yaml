@@ -35,3 +35,7 @@ chmod +x /usr/local/bin/syml
 [![asciicast](https://asciinema.org/a/256378.svg)](https://asciinema.org/a/256378)
 
 `syml help` to get more about usage
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fantonmarin%2Fsecret-yaml.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fantonmarin%2Fsecret-yaml?ref=badge_large)
