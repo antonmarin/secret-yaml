@@ -1,0 +1,44 @@
+name: onpush
+on: [push]
+jobs:
+  integration-pipeline:
+    name: Integration pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.19'
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup
+        run: |
+          export PATH=$PATH:/tmp;
+          wget -qO - "https://github.com/go-task/task/releases/download/v2.2.1/task_linux_amd64.tar.gz" | tar zxf - -C /tmp task;
+          ls -la /tmp/task;
+          task --version;
+          wget -qO - https://codeclimate.com/downloads/test-reporter/test-reporter-0.10.4-linux-amd64 > /tmp/cc-test-reporter;
+          chmod +x /tmp/cc-test-reporter;
+          ls -la /tmp/cc-test-reporter;
+          cc-test-reporter -v;
+      - name: Test
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+        run: |
+#          mkdir -p /home/runner/go/bin && export PATH=$PATH:/tmp:/home/runner/go/bin;
+          cc-test-reporter before-build;
+          task test;
+          cc-test-reporter after-build -t gocov --exit-code $? -p github.com/antonmarin/secret-yaml;
+#          goveralls -coverprofile=c.out -service=github -repotoken $COVERALLS_TOKEN;
+      - name: Report coverage
+        env:
+          COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          go install github.com/mattn/goveralls@latest;
+          goveralls -coverprofile=c.out -service=github;
+#        uses: coverallsapp/github-action@master
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
+#          flag-name: Unit
+#          path-to-lcov: c.out
