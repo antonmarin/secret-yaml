@@ -6,11 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: '1.19'
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup
         run: |
           export PATH=$PATH:/tmp;
@@ -24,21 +24,14 @@ jobs:
       - name: Test
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
         run: |
-#          mkdir -p /home/runner/go/bin && export PATH=$PATH:/tmp:/home/runner/go/bin;
+          export PATH=$PATH:/tmp;
           cc-test-reporter before-build;
           task test;
           cc-test-reporter after-build -t gocov --exit-code $? -p github.com/antonmarin/secret-yaml;
-#          goveralls -coverprofile=c.out -service=github -repotoken $COVERALLS_TOKEN;
       - name: Report coverage
         env:
           COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           go install github.com/mattn/goveralls@latest;
           goveralls -coverprofile=c.out -service=github;
-#        uses: coverallsapp/github-action@master
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-#          flag-name: Unit
-#          path-to-lcov: c.out
